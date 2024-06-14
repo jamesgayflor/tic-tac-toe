@@ -1,5 +1,8 @@
 #parent-container {
-    background-image: url('./tic_tac_toe.jpg');
+    background-image: url('./tic_video_background.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     height: 100vh;
     align-content: center;
