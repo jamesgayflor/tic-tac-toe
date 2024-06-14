@@ -1,24 +1,9 @@
 #parent-container {
+    background-image: url('./tic_tac_toe.jpg');
     width: 100%;
     height: 100vh;
     align-content: center;
 }
-
-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
-    z-index:-100;
-    overflow:hidden;
-  }
-
-  body::-webkit-scrollbar {
-    display: none;
-    overflow: hidden;
-
-  }
 
 #tic-parent-container {
     /* outline: solid yellow; */
