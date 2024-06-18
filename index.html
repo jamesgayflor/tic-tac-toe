@@ -21,6 +21,8 @@
         <section class="container" id="tic-parent-container">
             <header>
                 <h2 id="greetings-text">Welcome! <br>Ready to play <br>Tic-tac-toe?</h2>
+                <p id="score-board">You: <span id="player-score">0</span> Comp: <span id="computer-score">0</span></p>
+
             </header>
 
             <!-- Play Button -->
@@ -28,23 +30,28 @@
             <!-- Play Button -->
 
             <!-- Required Player/s Session -->
-            <button value="One Player" class="btn btn-outline-primary required_players" id="one-player">One Player</button>
-            <button value="Two Players" class="btn btn-outline-primary required_players" id="two-players">Two Players</button>
+            <button value="One Player" class="btn btn-outline-primary hidden" id="one-player">One Player</button>
+            <button value="Two Players" class="btn btn-outline-primary hidden" id="two-players">Two Players</button>
              <!-- Required Player/s Session -->
 
+             <!-- Player/s Character Selection -->
+            <button value="X" class="btn btn-outline-primary hidden" id="x-character">X</button>
+            <button value="O" class="btn btn-outline-primary hidden" id="y-character">O</button>
+             <!-- Player/s Character Selection -->
+
             <!-- tick-boxes-parent-container -->
-            <section id="tick-boxes-parent-container" class="row tick-boxes-parent-container">
-                <div class="ticks-boxs col-4">1</div>
-                <div class="ticks-boxs col-4">2</div>
-                <div class="ticks-boxs col-4">3</div>
+            <section id="tick-boxes-parent-container" class="row hidden">
+                <div class="ticks-boxs col-4" id="b1" aria-value="1"></div>
+                <div class="ticks-boxs col-4" id="b2" aria-value="2"></div>
+                <div class="ticks-boxs col-4" id="b3" aria-value="3"></div>
                 <!-- Division -->
-                <div class="ticks-boxs col-4">4</div>
-                <div class="ticks-boxs col-4">5</div>
-                <div class="ticks-boxs col-4">6</div>
+                <div class="ticks-boxs col-4" id="b4" aria-value="4"></div>
+                <div class="ticks-boxs col-4" id="b5" aria-value="5"></div>
+                <div class="ticks-boxs col-4" id="b6" aria-value="6"></div>
                 <!-- Division -->
-                <div class="ticks-boxs col-4">7</div>
-                <div class="ticks-boxs col-4">8</div>
-                <div class="ticks-boxs col-4">9</div>
+                <div class="ticks-boxs col-4" id="b7" aria-value="7"></div>
+                <div class="ticks-boxs col-4" id="b8" aria-value="8"></div>
+                <div class="ticks-boxs col-4" id="b9" aria-value="9"></div>
             </section>
             <!-- tick-boxes-parent-container closed-->
         </section>

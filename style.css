@@ -18,6 +18,7 @@
     padding-right: 50px;
     text-align: center;
     align-content: center;
+    border-radius: 50px;
 }
 
 header {
@@ -27,6 +28,14 @@ header {
     padding-bottom: 20px;
 }
 
+#greetings-text{
+    line-height: 35px;
+    font-size: 30px;
+}
+
+#score-board {font-size: 20px;
+display: none;}
+
 #play-btn {
     color: white;
     font-family: "Audiowide", sans-serif;
@@ -35,13 +44,15 @@ header {
 
 /* Required Player/s Session Buttons Styles Ends */
 #one-player, 
-#two-players {
+#two-players,
+#x-character,
+#y-character {
     color: white;
     font-family: "Audiowide", sans-serif;
     width: 200px;
 }
 
-.required_players {
+.hidden {
     display: none !important;
 }
 /* Required Player/s Session Buttons Styles Ends */
@@ -53,14 +64,13 @@ header {
     padding-bottom: 0;
 }
 
-.tick-boxes-parent-container {
-    display: none !important;
-}
-
 .ticks-boxs {
     color: white;
     font-family: "Audiowide", sans-serif;
     border: 2px solid white;
     text-align: center;
     align-content: center;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 25px;
 }
