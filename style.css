@@ -33,8 +33,16 @@ header {
     font-size: 30px;
 }
 
-#score-board {font-size: 20px;
+.score-board {font-size: 20px;
 display: none;}
+
+#player-score,
+#player1-score {
+    color: yellow;
+}
+#computer-score {
+    color: white;
+}
 
 #play-btn {
     color: white;
@@ -43,7 +51,7 @@ display: none;}
 }
 
 /* Required Player/s Session Buttons Styles Ends */
-#one-player, 
+#one-player,
 #two-players,
 #x-character,
 #y-character {
@@ -65,7 +73,7 @@ display: none;}
 }
 
 .ticks-boxs {
-    color: white;
+    color: yellow;
     font-family: "Audiowide", sans-serif;
     border: 2px solid white;
     text-align: center;

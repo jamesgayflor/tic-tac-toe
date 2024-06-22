@@ -31,9 +31,18 @@ const yCharacter = document.getElementById('y-character');
 let playerScore = 0;
 let computerScore = 0;
 
-const scoreBoard = document.getElementById('score-board');
-const playerScoreElement = document.getElementById('player-score');
-const computerScoreElement = document.getElementById('computer-score');
+// Game type variable one player/two player
+let game_type;
+
+const onePlayerScoreBoard = document.getElementById('one-player-score-board');
+const twoPlayerScoreBoard = document.getElementById('two-player-score-board');
+// One player mode score
+const single_match_player = document.getElementById('player-score');
+const single_match_computer = document.getElementById('computer-score');
+
+// Two player mode score
+const two_player_match_player1 = document.getElementById('player1-score');
+const two_player_match_player2 = document.getElementById('player2-score');
 
 // Functions Declaration
 
@@ -46,12 +55,23 @@ const startPlay = () => {
 };
 
 // One player selection
-const onePlayerSelectionHandler = () => {
+const oneplayerSelectionHandler = () => {
     document.getElementById('greetings-text').innerText = 'Select a character to play with:';
     onePlayerSelection.classList.add('hidden');
     twoPlayersSelection.classList.add('hidden');
     xCharacter.classList.remove('hidden');
     yCharacter.classList.remove('hidden');
+    game_type = 'onePlayer';
+};
+
+// Two player selection
+const twoPlayerSelectionHandler = () => {
+    document.getElementById('greetings-text').innerText = 'Select a character to play with:';
+    onePlayerSelection.classList.add('hidden');
+    twoPlayersSelection.classList.add('hidden');
+    xCharacter.classList.remove('hidden');
+    yCharacter.classList.remove('hidden');
+    game_type = 'twoPlayer';
 };
 
 // X character selected
@@ -61,9 +81,18 @@ const xCharacterSelected = () => {
     xCharacter.classList.add('hidden');
     yCharacter.classList.add('hidden');
     document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
-    document.getElementById('greetings-text').innerText = 'You VS Computer';
-    // Show the score board
-    scoreBoard.style.display = 'block';
+    if (game_type == 'onePlayer') {
+        document.getElementById('greetings-text').innerText = 'You VS Computer';
+        // Show the score board
+        onePlayerScoreBoard.style.display = 'block';
+        singlePlayerPlay();
+    }
+    else if (game_type == 'twoPlayer') {
+        document.getElementById('greetings-text').innerText = 'Player1 VS Player2';
+        // Show the score board
+        twoPlayerScoreBoard.style.display = 'block';
+        twoPlayerPlay();
+    }
 };
 
 // Y character selected
@@ -73,9 +102,18 @@ const yCharacterSelected = () => {
     xCharacter.classList.add('hidden');
     yCharacter.classList.add('hidden');
     document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
-    document.getElementById('greetings-text').innerText = 'You VS Computer';
-    // Show the score board
-    scoreBoard.style.display = 'block';
+    if (game_type == 'onePlayer') {
+        document.getElementById('greetings-text').innerText = 'You VS Computer';
+        // Show the score board
+        onePlayerScoreBoard.style.display = 'block';
+        singlePlayerPlay();
+    }
+    else if (game_type == 'twoPlayer') {
+        document.getElementById('greetings-text').innerText = 'Player1 VS Player2';
+        // Show the score board
+        twoPlayerScoreBoard.style.display = 'block';
+        twoPlayerPlay();
+    }
 };
 
 // Check for a win
@@ -99,14 +137,15 @@ const player2AutoPlay = () => {
 
     let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     setTimeout(() => {
+        randomBox.style.color = 'white';
         randomBox.innerText = player2Text;
         if (checkForWin(player2Text)) {
             computerScore++;
-            computerScoreElement.innerText = computerScore;
+            single_match_computer.innerText = computerScore;
             setTimeout(() => {
                 alert("Computer wins!");
                 resetBoard();
-            }, 1000);
+            }, 500);
         }
     }, 1000);
 };
@@ -116,14 +155,15 @@ const singlePlayerPlay = () => {
     tickBoxes.forEach(box => {
         box.addEventListener('click', () => {
             if (box.innerHTML === '') {
+                box.style.color = 'yellow';
                 box.innerText = player1Text;
                 if (checkForWin(player1Text)) {
                     playerScore++;
-                    playerScoreElement.innerText = playerScore;
+                    single_match_player.innerText = playerScore;
                     setTimeout(() => {
                         alert("You win!");
                         resetBoard();
-                    }, 1000);
+                    }, 500);
                 } else {
                     player2AutoPlay();
                 }
@@ -134,11 +174,43 @@ const singlePlayerPlay = () => {
     });
 };
 
+// Two Player play functionalities
+const twoPlayerPlay = () => {
+    let currentPlayer = player1Text;
+    tickBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            if (box.innerHTML === '') {
+                box.style.color = currentPlayer === player1Text ? 'yellow' : 'white';
+                box.innerText = currentPlayer;
+                if (checkForWin(currentPlayer)) {
+                    if (currentPlayer === player1Text) {
+                        playerScore++;
+                        two_player_match_player1.innerText = playerScore;
+                        setTimeout(() => {
+                            alert("Player 1 wins!");
+                            resetBoard();
+                        }, 500);
+                    } else {
+                        computerScore++;
+                        two_player_match_player2.innerText = computerScore;
+                        setTimeout(() => {
+                            alert("Player 2 wins!");
+                            resetBoard();
+                        }, 500);
+                    }
+                } else {
+                    currentPlayer = currentPlayer === player1Text ? player2Text : player1Text;
+                }
+            } else {
+                alert('You cannot tic-tac-toe here!');
+            }
+        });
+    });
+};
+
 // Event Listeners
 playBtn.addEventListener('click', startPlay);
-onePlayerSelection.addEventListener('click', onePlayerSelectionHandler);
+onePlayerSelection.addEventListener('click', oneplayerSelectionHandler);
+twoPlayersSelection.addEventListener('click', twoPlayerSelectionHandler);
 xCharacter.addEventListener('click', xCharacterSelected);
 yCharacter.addEventListener('click', yCharacterSelected);
-
-// Initialize single player play
-singlePlayerPlay();
