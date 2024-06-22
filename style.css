@@ -52,6 +52,9 @@ display: none;}
 
 /* Required Player/s Session Buttons Styles Ends */
 #one-player,
+#easy-btn,
+#medium-btn,
+#hard-btn,
 #two-players,
 #x-character,
 #y-character {

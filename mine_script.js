@@ -19,21 +19,23 @@ let winningStreaks = [
 
 let player1Text = 'X';
 let player2Text = 'O';
-let numberPlayers = 0;
+let gameType = null;
+let difficulty = null;
 
 const playBtn = document.getElementById('play-btn');
 const onePlayerSelection = document.getElementById('one-player');
 const twoPlayersSelection = document.getElementById('two-players');
 const xCharacter = document.getElementById('x-character');
 const yCharacter = document.getElementById('y-character');
+const easyButton = document.getElementById('easy-btn');
+const mediumButton = document.getElementById('medium-btn');
+const hardButton = document.getElementById('hard-btn');
 
 // Initialize scores
 let playerScore = 0;
 let computerScore = 0;
 
 // Game type variable one player/two player
-let game_type;
-
 const onePlayerScoreBoard = document.getElementById('one-player-score-board');
 const twoPlayerScoreBoard = document.getElementById('two-player-score-board');
 // One player mode score
@@ -61,7 +63,7 @@ const oneplayerSelectionHandler = () => {
     twoPlayersSelection.classList.add('hidden');
     xCharacter.classList.remove('hidden');
     yCharacter.classList.remove('hidden');
-    game_type = 'onePlayer';
+    gameType = 'onePlayer';
 };
 
 // Two player selection
@@ -71,7 +73,7 @@ const twoPlayerSelectionHandler = () => {
     twoPlayersSelection.classList.add('hidden');
     xCharacter.classList.remove('hidden');
     yCharacter.classList.remove('hidden');
-    game_type = 'twoPlayer';
+    gameType = 'twoPlayer';
 };
 
 // X character selected
@@ -80,14 +82,13 @@ const xCharacterSelected = () => {
     player2Text = yCharacter.getAttribute('value');
     xCharacter.classList.add('hidden');
     yCharacter.classList.add('hidden');
-    document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
-    if (game_type == 'onePlayer') {
-        document.getElementById('greetings-text').innerText = 'You VS Computer';
-        // Show the score board
-        onePlayerScoreBoard.style.display = 'block';
-        singlePlayerPlay();
-    }
-    else if (game_type == 'twoPlayer') {
+    if (gameType == 'onePlayer') {
+        document.getElementById('greetings-text').innerText = 'Select difficulty level:';
+        easyButton.classList.remove('hidden');
+        mediumButton.classList.remove('hidden');
+        hardButton.classList.remove('hidden');
+    } else if (gameType == 'twoPlayer') {
+        document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
         document.getElementById('greetings-text').innerText = 'Player1 VS Player2';
         // Show the score board
         twoPlayerScoreBoard.style.display = 'block';
@@ -101,19 +102,31 @@ const yCharacterSelected = () => {
     player2Text = xCharacter.getAttribute('value');
     xCharacter.classList.add('hidden');
     yCharacter.classList.add('hidden');
-    document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
-    if (game_type == 'onePlayer') {
-        document.getElementById('greetings-text').innerText = 'You VS Computer';
-        // Show the score board
-        onePlayerScoreBoard.style.display = 'block';
-        singlePlayerPlay();
-    }
-    else if (game_type == 'twoPlayer') {
+    if (gameType == 'onePlayer') {
+        document.getElementById('greetings-text').innerText = 'Select difficulty level:';
+        easyButton.classList.remove('hidden');
+        mediumButton.classList.remove('hidden');
+        hardButton.classList.remove('hidden');
+    } else if (gameType == 'twoPlayer') {
+        document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
         document.getElementById('greetings-text').innerText = 'Player1 VS Player2';
         // Show the score board
         twoPlayerScoreBoard.style.display = 'block';
         twoPlayerPlay();
     }
+};
+
+// Select difficulty level
+const selectDifficulty = (level) => {
+    difficulty = level;
+    easyButton.classList.add('hidden');
+    mediumButton.classList.add('hidden');
+    hardButton.classList.add('hidden');
+    document.getElementById('tick-boxes-parent-container').classList.remove('hidden');
+    document.getElementById('greetings-text').innerText = 'You VS Computer';
+    // Show the score board
+    onePlayerScoreBoard.style.display = 'block';
+    singlePlayerPlay();
 };
 
 // Check for a win
@@ -135,7 +148,17 @@ const player2AutoPlay = () => {
     let emptyBoxes = tickBoxes.filter(box => box.innerHTML === '');
     if (emptyBoxes.length === 0) return; // No empty boxes left
 
-    let randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+    let randomBox;
+    if (difficulty === 'easy') {
+        randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+    } else if (difficulty === 'medium') {
+        // Medium difficulty logic
+        randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+    } else if (difficulty === 'hard') {
+        // Hard difficulty logic
+        randomBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+    }
+
     setTimeout(() => {
         randomBox.style.color = 'white';
         randomBox.innerText = player2Text;
@@ -214,3 +237,6 @@ onePlayerSelection.addEventListener('click', oneplayerSelectionHandler);
 twoPlayersSelection.addEventListener('click', twoPlayerSelectionHandler);
 xCharacter.addEventListener('click', xCharacterSelected);
 yCharacter.addEventListener('click', yCharacterSelected);
+easyButton.addEventListener('click', () => selectDifficulty('easy'));
+mediumButton.addEventListener('click', () => selectDifficulty('medium'));
+hardButton.addEventListener('click', () => selectDifficulty('hard'));
